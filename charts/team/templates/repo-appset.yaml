@@ -22,11 +22,11 @@ spec:
       project: '{{ $.Release.Name }}'
       source:
         repoURL: 'https://github.com/{{ $.Values.githubOrg | default $.Release.Name }}/{{ . }}'
-        targetRevision: 'HEAD'
-        path: '{{ "{{" }}path{{ "}}" }}' #make it work with helm
+        # targetRevision: 'HEAD'
+        # path: '{{ "{{" }}path{{ "}}" }}' #make it work with helm
         ## Rendered manifests.
-        # targetRevision: '{{ "{{" }}path{{ "}}" }}'
-        # path: './'
+        targetRevision: '{{ "{{" }}path{{ "}}" }}'
+        path: './'
       destination:
         name: '{{ $.Values.cluster }}'
         namespace: '{{ $.Release.Name }}-{{ "{{" }}path.basename{{ "}}" }}'
