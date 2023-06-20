@@ -5,4 +5,4 @@ namespaces: #why do we need these? shouldn't they come from the directories in t
 - stage
 - prod
 repos:
-- demo-app-deployw
+- demo-app-deploy
