@@ -1,6 +1,6 @@
 email: <email>  # Replace with email found in User Info page in Argo CD.
 cluster: workshop
-namespaces:
+# namespaces: #why do we need these? shouldn't they come from the directories in the folders in the repo?
 - dev
 - stage
 - prod

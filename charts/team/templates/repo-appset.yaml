@@ -1,17 +1,18 @@
 # Using {{ "}}" }} to escape the templating used by appsets.
-{{- range .Values.repos }}
+{{- range .Values.repos }} # for all of the repos specified in the team helm chart
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: '{{ $.Release.Name }}-{{ . | trimSuffix "-deploy" }}'
 spec:
+  #application for every combination of repository and env
   generators:
   - git:
       repoURL: 'https://github.com/{{ $.Values.githubOrg | default $.Release.Name }}/{{ . }}'
       revision: HEAD
       directories:
-        - path: env/*
+        - path: env/* # creates an application for each folder under env
   template:
     metadata:
       name: '{{ $.Release.Name }}-{{ . | trimSuffix "-deploy" }}-{{ "{{" }}path.basename{{ "}}" }}'
@@ -22,7 +23,7 @@ spec:
       source:
         repoURL: 'https://github.com/{{ $.Values.githubOrg | default $.Release.Name }}/{{ . }}'
         targetRevision: 'HEAD'
-        path: '{{ "{{" }}path{{ "}}" }}'
+        path: '{{ "{{" }}path{{ "}}" }}' #make it work with helm
         ## Rendered manifests.
         # targetRevision: '{{ "{{" }}path{{ "}}" }}'
         # path: './'
